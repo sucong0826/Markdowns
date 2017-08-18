@@ -137,6 +137,10 @@ function derivative(f, dx) {
 
 在拥有不可变对象（如：Erlang）的严格的函数式编程语言中，实现自动内存管理是很容易的，因为变量引用中没有可能的循环。例如，在Erlang中，所有的参数和变量都分配在堆上，但引用他们要额外存储在栈上一份，当函数返回的时候，这些引用仍然有效，堆内存的清理是依靠递增的垃圾回收器完成的。
 
+闭包与并发计算的Actor模型的Actors角色关系密切，其中，函数的词汇环境中的值称为`acquaintances`。在并发的编程语言中，对于闭包来说一个很重要的问题就是在闭包中的变量是否可以被更新，而且，如果可以被更新，这些变量该如何被同步。Actors提供了一种方案。
+
+闭包与函数对象（function objects）关系密切；这种从前到后的转换被认为是去函数化（Defunctionalization）或者lambda lifting；
+
 ## Terms 术语表
 - Automatic variable 自动变量：在计算机编程语言中，自动变量是一个本地（局部）变量（local variable），当程序流进入并离开这个局部变量的作用域时，它将自动分配和释放。这个作用域是词意的环境，就是一个自动变量被定义在的函数或者代码块的环境。
   > *An automatic variable is a local variable which is allocated and deallocated automatically when program flow enters and leaves the variable's scope. The scope is lexical context, particularly the function or block in which a variable is defined.*
@@ -146,3 +150,11 @@ function derivative(f, dx) {
 
 - Funarg problem(functional arguments problem)
 函数式参数问题：在计算机科学中，funarg问题指的是在编程语言中使用基于栈的函数内存分配来实现以函数为第一等级对象的困难。这样的问题只会出现在有嵌套函数的主体（即不是通过参数传递）部分直接引用定义在函数定义的环境中的标识符，而不是在函数调用的环境中。
+
+- function object
+函数对象：在计算机程序中，一个函数对象是一个允许被调用的对象，或者好似一个被执调用的普通函数，它们通常有相同的语法（一个函数也可以作为函数的参数）。函数对象也通常叫做函数因子（函子）。
+
+- Defunctionalization 
+函数降阶：在编程语言中，函数降阶指的是，一个编译时期的转型。这个转型通过使用一阶应用函数代替且消除了高阶函数。
+
+- Lambda lifting：Lambda提升是重组计算机程序的元过程，使得函数在全局范围内彼此独立地定义。一个独立的“lift”将一个局部函数转换为全局函数。
