@@ -141,6 +141,27 @@ function derivative(f, dx) {
 
 闭包与函数对象（function objects）关系密切；这种从前到后的转换被认为是去函数化（Defunctionalization）或者lambda lifting；
 
+## Differences in semantics 不同的语义
+### 词汇环境
+作为不同的语言不总是有一个共同的词汇环境的定义，但是关于闭包的定义可能相同。常用的词汇环境的极简定义定义了一组在作用域所有变量的绑定。这也正是任何一门语言的闭包需要去捕捉的。然而，变量绑定的含义扔有所不同。在命令式语言中，变量绑定到可以存储值的相对内存空间上。尽管绑定的相对内存空间不会在运行时发生变化，但是绑定空间的值可以变化。在这样的语言中，因为闭包捕捉了这样的绑定，在任何一个变量上的操作，无论是否从闭包上完成，都会同一个相对内存空间上执行动作。这通常叫做通过引用捕捉变量。这有一个例子解释了这个概念，ECMAScript中，有如下代码：
+```ECMAScript
+var f, g;
+function foo() {
+  var x;
+  f = function() { return x++; };
+  g = function() { return --x; };
+  x = 1;
+  alert('inside foo, call to f(): ' + f());
+}
+
+foo();
+alert('call to g(): ' + g());
+alert('call to f(): ' + f());
+```
+注意变量`f`和`g`所引用的函数`foo()`和闭包都使用由局部变量`x`表示的相同的相对存储空间。
+
+另一方面，许多函数式语言，如ML，直接将变量绑定到值上。在这种情况下，一旦绑定，就没有方法去改变变量的值，也没有必要在闭包之间分享它们的状态。
+
 ## Terms 术语表
 - Automatic variable 自动变量：在计算机编程语言中，自动变量是一个本地（局部）变量（local variable），当程序流进入并离开这个局部变量的作用域时，它将自动分配和释放。这个作用域是词意的环境，就是一个自动变量被定义在的函数或者代码块的环境。
   > *An automatic variable is a local variable which is allocated and deallocated automatically when program flow enters and leaves the variable's scope. The scope is lexical context, particularly the function or block in which a variable is defined.*
