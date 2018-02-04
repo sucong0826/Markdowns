@@ -194,3 +194,9 @@ repositories {
 ```
 
 这样的话，App中TextView就可以更换字体了。就是这样，那就来试试这个新的可下载字体，它可以减小的APK的大小，可以加载多种字体。很有趣哦！
+
+## 说明
+
+\#原文#  [Downloadable Fonts with Support Library](https://android.jlelse.eu/downloadable-fonts-with-support-library-31ba51848655)
+\#作者#  Shaishav Gandhi
+\#发布时间# 2017/08/20
