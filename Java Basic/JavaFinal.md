@@ -80,7 +80,7 @@
 那绕了一大圈，我们终于回到了**内联（inline）**的分析上（这里写的有点啰嗦了），首先我们明确一点，内联是发生在编译期的一个优化操作，所做的优化操作的意义在于两个字，**“替换”** ，这种策略就是非常常见的一种利用**空间置换时间**的一个策略。我通过一个代码段来说明内联在做什么。  
 
 优化前的原始代码：
-   
+
     public static class Car {
     	double price;
     	final double getPrice() {
@@ -114,14 +114,14 @@
 
 2.IBM developerWorks上的一个blog，写的很贴心。  
 [http://www.ibm.com/developerworks/java/library/j-jtp1029/index.html](http://www.ibm.com/developerworks/java/library/j-jtp1029/index.html "Is that your final answer?")  
- 
+
 ----------
 
 当然，针对于Java平台来说，不同的编译器对于内联的处理不尽相同，甚至不同语言内联也不尽相同，而且内联优化的意义不止在于对资源上，而是为了`Further Optimizations`，更深入的优化，所以，以上只是优化中的一点点收益的地方，大家不要以偏概全，如果想知道内联更多的细节，请自行阅读相关书籍吧。
 
 #### 小结 ####
 一切从简，这里**final**修饰了类和方法，基本上叙述了一遍，分析了一部分原理。如有疑问，欢迎大家吐槽并指正，thanks here! 
- 
+
 小结如下:  
 1. final修饰类，更多从设计（Design）的角度去考虑吧，一个被**final**修饰的类无法子类化，即不能被继承。  
 2. final修饰类，类中的方法默认都是**final** 修饰的。  
@@ -158,16 +158,16 @@
     public class ConstTest {
     	// 直接初始化
     	private final int fee = 1;
-		private static final ORDER = 1;
+    	private static final ORDER = 1;
     
     	{
     		// 利用初始化块初始化
     		fee = 2;
     	}
-
-		static {
-			ORDER = 2;
-		}
+    
+    	static {
+    		ORDER = 2;
+    	}
     
     	// 在构造方法中初始化
     	public ConstTest() {
@@ -177,7 +177,7 @@
 
 对于引用类型来说，如果有**final**修饰一个引用类型变量，不是说明这个引用类型指向的实际地址的对象不可变，而是说这个引用不能再指向其他地址的对象，而对象本身是可以改变的。如书上说差不多，这确实有点迷惑。不过问题也不大，就说明一个变量的引用不能变而已，被固定了。对于这点，我就不做过多的解释了，因为它确实没什么典型的例子我能想到的，如果您有好的典型，也请在这里批注补充。
 
-### 四、使用（内部类）###
+### 四、使用（内部类）
 ------
 在文章开始分类的时候，我们特意把这个**final**修饰方法的参数单独拿出来单独作为一个小结，之所以这么做，是因为这里面还有一些内容值得我们学习的。先上一段代码：
 
@@ -193,7 +193,7 @@
     	public static void main(String[] args) {
     		Parcel p = new Parcel();
     		Destination where = p.destination("China");
-			System.out.println(where.readLabel());
+    		System.out.println(where.readLabel());
     	}
     }
 看到了，**final**又出现了，这次**final**出现的场景在一个方法的列表中，对于出现方法列表中的final来说一共有两个含义，这里我们先结合方法的内部类来说明。首先如果使用编译器编写这段代码的时候，如果我们不对`dest`增加`final`参数，那么一个IDE是会报错。为什么会报错，我们先从方法执行入手。
@@ -212,7 +212,7 @@
 
     // See JLS sections 8.1.1, 8.3.1, 8.4.3, 8.8.3, and 9.1.1.
     // java.lang.reflect.Modifier includes INTERFACE, but that's a VMism.
-
+    
     /** The modifier {@code public} */          PUBLIC,
     /** The modifier {@code protected} */       PROTECTED,
     /** The modifier {@code private} */         PRIVATE,
@@ -229,7 +229,7 @@
     /** The modifier {@code synchronized} */    SYNCHRONIZED,
     /** The modifier {@code native} */          NATIVE,
     /** The modifier {@code strictfp} */        STRICTFP;
-
+    
     /**
      * Returns this modifier's name in lowercase.
      */
@@ -263,7 +263,7 @@ Java的沙箱为了保证装载的类文件的安全性，会在验证阶段对�
 
 以上就是我个人对**final**的一个理解和总结，资历尚浅，内容可能还不够有有深度，自己也认为有很多地方还可以在完善的，但是也希望别人给出意见，综合提升，所以欢迎大家吐槽、指责、交流。
 
-### 参考和致谢 ###
+### 参考 ###
 ------
 BOOKS:  
 
@@ -278,6 +278,3 @@ BLOGS:
 
 - Why is this class final?  
 [http://www.ibm.com/developerworks/java/library/j-jtp1029/index.html](http://www.ibm.com/developerworks/java/library/j-jtp1029/index.html)
-
-感谢顾（老大），在我给他讲解**final**使用问题的时候，让我认识到自己说不清楚，有想搞明白的冲动。  
-感谢丹总，中午在商场一路请教他关于**final**的知识，给我讲了一路。

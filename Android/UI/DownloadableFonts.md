@@ -9,8 +9,9 @@
 你可以去看看Google官方的文档，附上链接[Downloadable Fonts（可下载字体）](https://developer.android.com/guide/topics/ui/look-and-feel/downloadable-fonts.html#adding-certificates)。
 
 - 可下载的字体可以减小APK的体积。（因为你可以不用把.ttf/.otf这样的字体文件打包在你的APK中了。）
+  
   > 这里附上一个文章，关于ttf与otf字体的比较。[otf/ttf/ttc格式字体的区别](https://jingyan.baidu.com/article/5d6edee2fe14f299eadeec1c.html)
-
+  
 - 同一台设备上的Apps可以从一个单一资源中共享字体，这种方式解决了因字体资源文件过多占用了用户过多的存储空间的问题。
 
 对于原生支持的字体，Android系统尤其强调了第二点。来简单的看一下：

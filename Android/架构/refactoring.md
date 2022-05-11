@@ -186,9 +186,9 @@ public final class AddressTable {
 }
 ```
   因此，在每一个组件初始化的时候，都会将自己注册到这个表格中，并且领到自己的地址。Processor在处理完会议队列后，会将一个即将启动的Meeting发送给Scheduler，它是一个会议调度器，会根据具体的信息安排会议的启动与延迟等。Processor会在`MASnowBall`中揉进这个Meeting并且将目标地址设为需要的Scheduler的的地址（即使只有它需要）。Processor通过`send`方法到整个系统中，需要的组件会验证目标地址是否自己的地址，如果是，便取出`MASnowBall`，解析对应的信息。我利用模板模式整合了组件的内部：
-  
+
   ![Component Template](./pngs/scheme2_template.png)
-  
+
   每一个组件都有一个port，类似于主机的端口号一样，这是标识一个组件的唯一的地址，每一个组件包含三个部分：
   1. 接收：接收组播的消息，包括两个子步骤，注入与解析。
   2. 处理：处理由模板的核心部分来完成，它包含了每个板子的核心处理逻辑。
